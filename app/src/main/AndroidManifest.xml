@@ -10,9 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".History"
-            android:label="@string/title_activity_history"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".History"/>
         <activity android:name=".Capacity" />
         <activity
             android:name=".MainActivity"
