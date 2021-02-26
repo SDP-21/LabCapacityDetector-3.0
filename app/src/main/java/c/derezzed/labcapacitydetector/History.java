@@ -25,6 +25,11 @@ public class History extends AppCompatActivity {
     Intent history_intent;
     public int infoArray[];
     public int minArray[];
+    String current;
+    String six;
+    String twelve;
+    String eighteen;
+    String twentyFour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class History extends AppCompatActivity {
 
         infoArray = secondIntent.getIntArray("value");
 
-        //graphing
+        // graphing
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
@@ -65,35 +70,124 @@ public class History extends AppCompatActivity {
             graph.getViewport().setMinY(0);
             graph.getViewport().setMaxY(20);
 
+            graph.getGridLabelRenderer().setHorizontalAxisTitle("Last 24 Hours");
+            graph.getGridLabelRenderer().setVerticalAxisTitle("Number of People");
+
             graph.getViewport().setYAxisBoundsManual(true);
             graph.getViewport().setXAxisBoundsManual(true);
+            graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
             if (infoArray[0] == 1) {
                 TextView textsum = (TextView) findViewById(R.id.historytitle);
                 textsum.setText("History of Lab Capacity: Duda Hall");
             }
 
-            int minArray[] = new int[] {infoArray[4], infoArray[6],infoArray[8],
-                    infoArray[10], infoArray[12], infoArray[14], infoArray[16], infoArray[18],
-                    infoArray[20], infoArray[22], infoArray[24]};
+            // axis maker
+            int currentTime = infoArray[53];
+            int sixTime;
+            int twelveTime;
+            int eighteenTime;
+            int twentyFourTime;
 
-            for (int i = 0; i < minArray.length; i++)
-            {
-                for (int j = i + 1; j < minArray.length; j++)
-                {
-                    if (minArray[i] > minArray[j])
-                    {
-                        temp = minArray[i];
-                        minArray[i] = minArray[j];
-                        minArray[j] = temp;
-                    }
-                }
+//            if (currentTime > 12) {
+//                current = (String.valueOf(currentTime - 12) + " p.m.");
+//            }
+//            else {
+//                current = (String.valueOf(currentTime) + " a.m.");
+//            }
+
+//            if (currentTime - 6 > 12) {
+//                sixTime = (currentTime - 6) + Math.abs(currentTime - 12);
+//                six = (String.valueOf(currentTime) + " p.m.");
+//            }
+//            else {
+//                six = (String.valueOf(currentTime) + " a.m.");
+//            }
+
+            // string builder
+            current = (String.valueOf(currentTime) + ":00");
+
+            // six
+            if (currentTime > 12) {
+                sixTime = currentTime - 6;
+            } else {
+                sixTime = 24 - Math.abs(currentTime - 6);
             }
-            int min = minArray[0];
+            six = Integer.toString(sixTime) + ":00";
+            // twelve
+            if (currentTime > 12) {
+                twelveTime = currentTime - 12;
+            } else {
+                twelveTime = 24 - Math.abs(currentTime - 12);
+            }
+            twelve = Integer.toString(twelveTime) + ":00";
+            // eighteen     - delete redundancy
+            if (currentTime > 12) {
+                eighteenTime = 24 - Math.abs(currentTime - 18);
+            } else {
+                eighteenTime = 24 - Math.abs(currentTime - 18);;
+            }
+            eighteen = Integer.toString(eighteenTime) + ":00";
+            twentyFour = current;
+            // twentyfour
+//            if (currentTime < 12) {
+//                SIXTime = currentTime - 24;
+//            }
+//            else {
+//                sixTime = 24 - Math.abs(currentTime - 24);
+
+            twentyFourTime = currentTime;
 
         }
-        
-    }
+
+        TextView currentView = (TextView) findViewById(R.id.nowTime);
+        TextView sixView = (TextView) findViewById(R.id.sixTime);
+        TextView twelveView = (TextView) findViewById(R.id.twelveTime);
+        TextView eighteenView = (TextView) findViewById(R.id.eighteenTime);
+        TextView twentyFourView = (TextView) findViewById(R.id.twentyFourTime);
+
+        currentView.setText(current);
+        sixView.setText(String.valueOf(six));
+        twelveView.setText(String.valueOf(twelve));
+        eighteenView.setText(String.valueOf(eighteen));
+        twentyFourView.setText(String.valueOf(twentyFour));
+
+        if (twentyFour == null) {
+            sixView.setVisibility(View.INVISIBLE);
+            twelveView.setVisibility(View.INVISIBLE);
+            eighteenView.setVisibility(View.INVISIBLE);
+            twentyFourView.setVisibility(View.INVISIBLE);
+        }
+        else{
+            sixView.setVisibility(View.VISIBLE);
+            twelveView.setVisibility(View.VISIBLE);
+            eighteenView.setVisibility(View.VISIBLE);
+            twentyFourView.setVisibility(View.VISIBLE);
+        }
+
+
+
+        // ideal time checker
+
+//        int minArray[] = new int[]{infoArray[4], infoArray[6], infoArray[8],
+//                infoArray[10], infoArray[12], infoArray[14], infoArray[16], infoArray[18],
+//                infoArray[20], infoArray[22], infoArray[24]};
+//
+//        for (int i = 0; i < minArray.length; i++) {
+//            for (int j = i + 1; j < minArray.length; j++) {
+//                if (minArray[i] > minArray[j]) {
+//                    temp = minArray[i];
+//                    minArray[i] = minArray[j];
+//                    minArray[j] = temp;
+//                }
+//            }
+//        }
+//        int min = minArray[0];
+
+
+
+
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
