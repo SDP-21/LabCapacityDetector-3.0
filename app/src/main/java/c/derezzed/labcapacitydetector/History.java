@@ -1,22 +1,16 @@
 package c.derezzed.labcapacitydetector;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static c.derezzed.labcapacitydetector.MainActivity.*;
 
 public class History extends AppCompatActivity {
 
