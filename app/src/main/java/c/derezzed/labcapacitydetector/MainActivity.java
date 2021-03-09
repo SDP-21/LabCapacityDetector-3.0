@@ -28,12 +28,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.referencecode.database.models.Post;
 //import com.google.firebase.referencecode.database.models.User;
 
 public class MainActivity extends AppCompatActivity {
     private Button loaderButton;
-    private DatabaseReference mDatabase;
+    private DocumentReference mDatabase;
     public static String personnel_count;
     public static String queue_count;
     public int infoArray[];
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     Intent home_intent;
     Intent capacity_intent;
     Intent history_intent;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         // firebase tools
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        mDatabase = db.collection("MDR Demo").document("person0");
 
 
         // intents
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -103,14 +110,18 @@ public class MainActivity extends AppCompatActivity {
     public int[] getUpdateInfo(String userId) {
         // downloads information from cloud service to update app
 
-        mDatabase.child("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("firebase", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("firebase", "No such document");
+                    }
+                } else {
+                    Log.d("firebase", "get failed with ", task.getException());
                 }
             }
         });
