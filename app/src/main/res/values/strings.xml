@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab Capacity Detector</string>
+    <string name="app_name">Lab Vacancy Detector</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_history">History</string>
     <!-- Strings used for fragments for navigation -->

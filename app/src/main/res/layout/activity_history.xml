@@ -34,7 +34,7 @@
         android:id="@+id/historytitle"
         android:layout_width="384dp"
         android:layout_height="137dp"
-        android:text="History of Lab Capacity: No Lab Selected"
+        android:text="History of Lab Vacancy: No Lab Selected"
         android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

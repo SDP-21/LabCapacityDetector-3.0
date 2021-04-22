@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_Capacity"
         android:orderInCategory="200"
-        android:title="Capacity"
+        android:title="Vacancy"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_History"

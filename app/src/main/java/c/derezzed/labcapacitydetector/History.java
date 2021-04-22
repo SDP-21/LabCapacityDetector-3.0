@@ -73,7 +73,7 @@ public class History extends AppCompatActivity {
 
             if (infoArray[0] == 1) {
                 TextView textsum = (TextView) findViewById(R.id.historytitle);
-                textsum.setText("History of Lab Capacity: Duda Hall");
+                textsum.setText("History of Lab Vacancy: Duda Hall");
             }
 
             // axis maker
